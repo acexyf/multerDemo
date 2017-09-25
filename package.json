@@ -1,0 +1,15 @@
+{
+  "name": "pngquantserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pngquantServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.15.4",
+    "multer": "^1.3.0"
+  }
+}

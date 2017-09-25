@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" name="singleFile" id="upload" id="">
+    <button class="submit">上传</button>
+
+    <script src="//xieyufei.com/js/jquery.min.js"></script>
+    <script>
+
+        $('.submit').on('click',function(){
+
+            var fileList = $('#upload')[0].files;
+            console.log(fileList);
+            var formData = new FormData();
+
+            for(let i =0;i<fileList.length;i++){
+                formData.append('singleFile', fileList[i]);
+            }
+
+            $.ajax({
+                url: '/upload/single',
+                type:'post',
+                processData:false,
+                contentType:false,
+                data: formData,
+                success: function(data){
+                    console.log(data)
+                }
+            })
+        });
+
+
+    </script>
+</body>
+</html>
