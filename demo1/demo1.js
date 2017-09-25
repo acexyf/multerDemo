@@ -20,7 +20,7 @@ var upload = multer({
     },
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, 'uploads/')
+            cb(null, './uploads/')
         },
         filename: function (req, file, cb) {
             // console.log(file,'filename')
@@ -44,7 +44,7 @@ var upload = multer({
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(path.resolve(__dirname, 'uploadServer1.html'));
+    res.sendFile(path.resolve(__dirname, 'demo1.html'));
 });
 
 app.post('/upload/single',upload.single('singleFile'), function(req,res){
