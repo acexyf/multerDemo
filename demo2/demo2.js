@@ -9,9 +9,10 @@ var app = express();
 
 var upload = multer({
     limits:{
-        //10mb
-        fileSize: 10*1000*1000,
-        files: 10
+        //限制文件大小10kb
+        fileSize: 10*1000,
+        //限制文件数量
+        files: 5
     },
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
@@ -41,11 +42,9 @@ app.get('/', function (req, res) {
 
 
 let singleUpload = upload.single('singleFile');
-
 //单个文件上传
 app.post('/upload/single',(req,res)=>{
     singleUpload(req,res,(err)=>{
-
         if(!!err){
             console.log(err.message)
             res.json({
@@ -56,7 +55,6 @@ app.post('/upload/single',(req,res)=>{
             })
             return;
         }
-        
         if(!!req.file){
             res.json({
                 code: '0000',
@@ -72,19 +70,13 @@ app.post('/upload/single',(req,res)=>{
                 msg: ''
             })
         }
-
     });
-
 });
-
 
 let multerUpload = upload.array('multerFile');
 //多个文件上传
 app.post('/upload/multer', (req,res)=>{
-    console.log(req.files);
-
     multerUpload(req,res,(err)=>{
-
         if(!!err){
             res.json({
                 code: '2000',
@@ -93,7 +85,6 @@ app.post('/upload/multer', (req,res)=>{
                 msg: err.message
             });
         }
-
         let fileList = [];
         req.files.map((elem)=>{
             fileList.push({
@@ -107,7 +98,6 @@ app.post('/upload/multer', (req,res)=>{
             msg:''
         });
     });
-
 });
 
 
