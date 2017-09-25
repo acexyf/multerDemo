@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo1": "supervisor demo1/demo1",
-    "demo2": "supervisor demo2/demo2"
+    "demo2": "supervisor demo2/demo2",
+    "demo3": "supervisor demo3/demo3"
   },
   "author": "",
   "license": "ISC",

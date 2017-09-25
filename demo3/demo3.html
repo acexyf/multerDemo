@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="file" name="" id="avatar" multiple>
+    </div>
+    <div>
+        <input type="file" name="" id="gallery" multiple>
+    </div>
+    <div>
+        <button class="submit">上传</button>
+    </div>
+
+    <script src="//xieyufei.com/js/jquery.min.js"></script>
+    <script>
+        $('.submit').on('click', function(){
+            var avatarList = $('#avatar')[0].files,
+            galleryList = $('#gallery')[0].files;
+
+            var formData = new FormData();
+
+            for(let i = 0;i<avatarList.length;i++){
+                formData.append('avatar', avatarList[i]);
+            }
+
+            for(let j = 0;j<galleryList.length;j++){
+                formData.append('gallery', galleryList[j]);
+            }
+
+            $.ajax({
+                url: '/upload/fields',
+                type:'post',
+                processData:false,
+                contentType:false,
+                data: formData,
+                success: function(data){
+                    console.log(data)
+                }
+            })
+
+        });
+
+    </script>
+</body>
+</html>

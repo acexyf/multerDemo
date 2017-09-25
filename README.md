@@ -11,5 +11,7 @@ npm i
 npm run dem1
 //第二个demo
 npm run dem2
+//第三个demo
+npm run dem3
 ```
 
