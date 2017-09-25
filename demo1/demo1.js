@@ -23,23 +23,12 @@ var upload = multer({
             cb(null, './uploads/')
         },
         filename: function (req, file, cb) {
-            // console.log(file,'filename')
-    
             var changedName = (new Date().getTime())+'-'+file.originalname;
             cb(null, changedName);
-    
         }
     }),
     fileFilter: function(req, file, cb){
-
-        // if(file.mimetype == 'image/png'){
-        //     cb(null, true)
-        // } else {
-        //     cb(null, false)
-        // }
-
         cb(null, true);
-
     }
 });
 
@@ -47,15 +36,33 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'demo1.html'));
 });
 
+//单个文件上传
 app.post('/upload/single',upload.single('singleFile'), function(req,res){
     console.log(req.file);
     res.json({
         code: '0000',
-        type:'single'
+        type:'single',
+        originalname: req.file.originalname
     })
 });
 
+//多个文件上传
+app.post('/upload/multer',upload.array('multerFile'), function(req,res){
+    console.log(req.files);
 
+    let fileList = [];
+    req.files.map(function(elem){
+        fileList.push({
+            originalname: elem.originalname
+        })
+    });
+
+    res.json({
+        code: '0000',
+        type:'multer',
+        fileList:fileList
+    })
+});
 
 
 let server = app.listen(port, function () {

@@ -7,24 +7,56 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="file" name="singleFile" id="upload" id="">
-    <button class="submit">上传</button>
+
+    <div class="single">
+        <div class="title">单个文件上传</div>
+        <input type="file" name="singleFile" id="singleFile">
+        <button class="submit">上传</button>
+    </div>
+
+    <div class="multer">
+        <div class="title">多个文件上传</div>
+        <input type="file" name="multerFile" id="multerFile" multiple>
+        <button class="submit">上传</button>
+    </div>
+
 
     <script src="//xieyufei.com/js/jquery.min.js"></script>
     <script>
 
-        $('.submit').on('click',function(){
+        $('.single .submit').on('click',function(){
 
-            var fileList = $('#upload')[0].files;
+            var fileList = $('#singleFile')[0].files;
             console.log(fileList);
             var formData = new FormData();
 
-            for(let i =0;i<fileList.length;i++){
-                formData.append('singleFile', fileList[i]);
-            }
+            formData.append('singleFile', fileList[0]);
 
             $.ajax({
                 url: '/upload/single',
+                type:'post',
+                processData:false,
+                contentType:false,
+                data: formData,
+                success: function(data){
+                    console.log(data)
+                }
+            })
+        });
+
+
+        $('.multer .submit').on('click',function(){
+
+            var fileList = $('#multerFile')[0].files;
+            console.log(fileList);
+            var formData = new FormData();
+
+            for(let i = 0; i < fileList.length; i++){
+                formData.append('multerFile', fileList[i]);
+            }
+
+            $.ajax({
+                url: '/upload/multer',
                 type:'post',
                 processData:false,
                 contentType:false,
